@@ -177,10 +177,15 @@
             height: 48px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid white;
+            border: 4px solid white;
             margin-right: 10px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.4);
         }
+
+        #score-row-0 .player-avatar { border-color: #e74c3c; }
+        #score-row-1 .player-avatar { border-color: #3498db; }
+        #score-row-2 .player-avatar { border-color: #2ecc71; }
+        #score-row-3 .player-avatar { border-color: #f39c12; }
 
         .score-row {
             display: flex;
@@ -565,10 +570,17 @@
             background: rgba(255,255,255,0.1);
             border-radius: 5px;
             font-size: 0.85rem;
+            align-items: center;
         }
 
         .level-result-row .player-name {
             flex: 1;
+        }
+
+        .level-result-row .player-avatar {
+            width: 32px;
+            height: 32px;
+            border-width: 3px;
         }
 
         .level-result-row .distance {
@@ -1161,8 +1173,8 @@
             scoresDiv.innerHTML = roundScores.map(r => `
                 <div class="level-result-row">
                     ${playerPhotos[r.player]
-                        ? `<img class="player-avatar" src="${playerPhotos[r.player]}">`
-                        : `<span class="player-dot" style="background: ${PLAYER_COLORS[r.player]}; width: 20px; height: 20px; border-radius: 50%; margin-right: 8px;"></span>`
+                        ? `<img class="player-avatar" src="${playerPhotos[r.player]}" style="border-color: ${PLAYER_COLORS[r.player]}">`
+                        : `<span class="player-dot" style="background: ${PLAYER_COLORS[r.player]}; width: 32px; height: 32px; border-radius: 50%; margin-right: 8px;"></span>`
                     }
                     <span class="player-name" style="color: ${PLAYER_COLORS[r.player]}">${PLAYER_NAMES[r.player]}</span>
                     <span class="points">+${r.score}</span>
@@ -1217,8 +1229,8 @@
                 <div class="final-score-row ${i === 0 ? 'winner' : ''}">
                     <span class="place">${i + 1}.</span>
                     ${playerPhotos[r.player]
-                        ? `<img class="player-avatar" src="${playerPhotos[r.player]}">`
-                        : `<span class="player-dot" style="background: ${PLAYER_COLORS[r.player]}; width: 24px; height: 24px; border-radius: 50%; margin-right: 8px;"></span>`
+                        ? `<img class="player-avatar" src="${playerPhotos[r.player]}" style="border-color: ${PLAYER_COLORS[r.player]}">`
+                        : `<span class="player-dot" style="background: ${PLAYER_COLORS[r.player]}; width: 40px; height: 40px; border-radius: 50%; margin-right: 8px;"></span>`
                     }
                     <span style="color: ${PLAYER_COLORS[r.player]}; flex: 1;">${PLAYER_NAMES[r.player]}</span>
                     <span>${r.score}</span>
