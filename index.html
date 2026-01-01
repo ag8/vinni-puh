@@ -984,8 +984,10 @@
             if (currentLevel === 0 && webcamStream) {
                 playerPhotos[currentPlayer] = capturePhoto();
                 updateScoreboardWithPhotos();
+            }
 
-                // Add photo to current pin
+            // Add photo to pin if available
+            if (playerPhotos[currentPlayer]) {
                 const img = document.createElement('img');
                 img.src = playerPhotos[currentPlayer];
                 tempPin.appendChild(img);
