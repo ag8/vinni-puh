@@ -302,6 +302,21 @@
             display: none;
         }
 
+        .pin-score {
+            position: absolute;
+            bottom: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.85);
+            color: #4ade80;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 6px;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
         .pin.correct {
             background: gold !important;
             border-color: white;
@@ -1030,7 +1045,7 @@
 
             // Calculate distances and scores using GeoGuessr formula:
             // score = 5000 * e^(-10 * distance / mapSize)
-            currentPins.forEach(pin => {
+            currentPins.forEach((pin, index) => {
                 const distance = calculateDistance(
                     pin.x, pin.y,
                     level.correctX, level.correctY
@@ -1053,6 +1068,9 @@
                     correctX: level.correctX,
                     correctY: level.correctY
                 });
+
+                // Add score label to the pin on the map
+                addScoreLabelToPin(pin.player, score);
             });
 
             // Show correct answer on map
@@ -1081,6 +1099,21 @@
             correctPin.style.left = `${x}%`;
             correctPin.style.top = `${y}%`;
             mapWrapper.appendChild(correctPin);
+        }
+
+        function addScoreLabelToPin(playerIndex, score) {
+            const mapWrapper = document.getElementById('map-wrapper');
+            const pins = mapWrapper.querySelectorAll('.pin:not(.correct)');
+
+            // Find the pin for this player (they're added in order)
+            pins.forEach(pin => {
+                if (parseInt(pin.dataset.player) === playerIndex + 1 && !pin.querySelector('.pin-score')) {
+                    const label = document.createElement('div');
+                    label.className = 'pin-score';
+                    label.textContent = `+${score}`;
+                    pin.appendChild(label);
+                }
+            });
         }
 
         function drawDistanceLines(correctX, correctY) {
@@ -1129,7 +1162,6 @@
                         : `<span class="player-dot" style="background: ${PLAYER_COLORS[r.player]}; width: 20px; height: 20px; border-radius: 50%; margin-right: 8px;"></span>`
                     }
                     <span class="player-name" style="color: ${PLAYER_COLORS[r.player]}">${PLAYER_NAMES[r.player]}</span>
-                    <span class="distance">${r.distance}%</span>
                     <span class="points">+${r.score}</span>
                 </div>
             `).join('');
