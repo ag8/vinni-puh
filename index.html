@@ -981,6 +981,7 @@
             pin.style.left = `${x}%`;
             pin.style.top = `${y}%`;
             pin.style.background = PLAYER_COLORS[playerIndex];
+            pin.style.borderColor = PLAYER_COLORS[playerIndex];
             pin.dataset.player = playerIndex + 1;
             pin.dataset.x = x;
             pin.dataset.y = y;
@@ -1279,6 +1280,7 @@
                     pinEl.style.left = `${pin.x}%`;
                     pinEl.style.top = `${pin.y}%`;
                     pinEl.style.background = PLAYER_COLORS[pin.player];
+                    pinEl.style.borderColor = PLAYER_COLORS[pin.player];
                     pinEl.dataset.player = pin.player + 1;
 
                     // Add photo if available
